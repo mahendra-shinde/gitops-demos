@@ -15,13 +15,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image for Common Database
-      run: docker build . --file database/Dockerfile 
+      run: docker build database
     
     - name: Build the Docker image for Books API
-      run: docker build . --file books-api/Dockerfile 
+      run: docker build books-api
 
     
     - name: Build the Docker image for Members API
-      run: docker build . --file books-api/Dockerfile 
+      run: docker build books-api
 
     
