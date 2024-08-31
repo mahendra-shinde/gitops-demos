@@ -1,0 +1,27 @@
+name: Build All
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image for Common Database
+      run: docker build . --file database/Dockerfile 
+    
+    - name: Build the Docker image for Books API
+      run: docker build . --file books-api/Dockerfile 
+
+    
+    - name: Build the Docker image for Members API
+      run: docker build . --file books-api/Dockerfile 
+
+    
