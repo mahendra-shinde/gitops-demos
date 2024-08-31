@@ -3,10 +3,12 @@ version: '3.5'
 services:
   book-api:
     image: mahendrshinde/ms-demo-library:books-api
+    build:
+      context: books-api/
+      
     depends_on:
       db:
         condition: service_healthy
-
     environment:
       - DBSERVER=db
       - DBPORT=3306
@@ -16,6 +18,8 @@ services:
   
   member-api:
     image: mahendrshinde/ms-demo-library:members-api
+    build:
+      context: members-api/
     depends_on:
       db:
         condition: service_healthy
@@ -28,6 +32,9 @@ services:
 
   issue-api:
     image: mahendrshinde/ms-demo-library:issues-api
+    build:
+      context: issues-api/
+      
     depends_on:
       db:
         condition: service_healthy
@@ -40,6 +47,8 @@ services:
 
   api-docs:
     image: mahendrshinde/ms-demo-library:docs
+    build:
+      context: library-docs/
     depends_on:
       db:
         condition: service_healthy
@@ -58,6 +67,8 @@ services:
 
   gateway:
     image: mahendrshinde/ms-demo-library:gateway
+    build:
+      context: library-gateway
     depends_on:
     - member-api
     - book-api
@@ -73,6 +84,9 @@ services:
 
   db:
     image: mahendrshinde/ms-demo-library:db
+    build:
+      context: database/
+      
     healthcheck:
       test: ["CMD","mysql", "-umahendra","-ppass@12345","-Dlibrarydb","-e","select 1"]
       interval: 30s
